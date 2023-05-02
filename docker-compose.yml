@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - '8080:80'
+    depends_on:
+      - testdb
+      - db
+    environment:
+      DB_HOST: db
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:11
+    environment:
+      POSTGRES_DB: todo
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+    ports:
+      - '5432:5432'
+
+  testdb:
+    image: postgres:11
+    environment:
+      POSTGRES_DB: todo
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+    ports:
+      - '5433:5432'
